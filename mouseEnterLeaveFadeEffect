@@ -1,0 +1,24 @@
+var enter_ = [false, false,false,false,false,false];
+function good_td_onmouseenter(n) {
+  enter_[n] = true;
+  $('.goodlink'+ n).css('backgroundColor','rgba(24, 132, 240,0.2)');
+}
+function good_td_onmouseleave(n) {
+  //$('.goodlink'+n).css('backgroundColor', 'rgba(255,255,255,0)');
+  let opac = 0.3;
+  let intv = null;
+  enter_[n] = false;
+  intv = setInterval(function(){
+    $('.goodlink'+n).css('backgroundColor','rgba(24, 132, 240,' + opac + ')');
+    opac -= 0.01
+    if(opac<=0) {
+      $('.goodlink'+n).css('backgroundColor','rgba(24, 132, 240,0)');
+      clearInterval(intv);
+    }
+    else if(enter_[n] == true) { // leave fade 처리 중인데 다시 들어오는  경우
+      $('.goodlink'+ n).css('backgroundColor','rgba(24, 132, 240,0.2)');
+      enter_[n] = false;
+      clearInterval(intv);
+    }
+  }, 20);
+}
