@@ -1,0 +1,40 @@
+var intv = null; // 현재 진행중인 interval
+var direc = -15; // 현재 메뉴바 좌표
+var fixed = false; // 메뉴 고정 여부
+function showMenu(lFM){ // 메뉴 마우스 위치에 따라 왔다갔다
+  if(intv != null) {
+    clearInterval(intv);
+    intv = null;
+  }
+  if(lFM == false && fixed == false) {
+    intv = setInterval(function(){
+      direc -= 0.2;
+    $('#leftFixedMenu').css('left', direc+'%');
+    if(direc<=-15) {
+      $('#leftFixedMenu').css('left','-15%');
+      direc = -15;
+      clearInterval(intv);
+  }
+},5);
+}
+  else {
+    intv = setInterval(function(){
+      direc += 0.2;
+    $('#leftFixedMenu').css('left', direc+'%');
+    if(direc>=0) {
+      $('#leftFixedMenu').css('left','0%');
+      direc=0;
+      clearInterval(intv);
+    }
+  },5);
+  }
+}
+function fixmenu() {
+  fixed = !fixed;
+  if(fixed) { // true
+    $('#lFMbtn').css('backgroundColor', 'purple');
+  }
+  else {
+    $('#lFMbtn').css('backgroundColor', 'rgba(8, 11, 189,0.4)');
+  }
+}
